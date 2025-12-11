@@ -74,6 +74,22 @@ sensor:
     entity_category: diagnostic
     name: "Paired Devices"
     icon: mdi:remote
+  - platform: ratgdo
+    id: ${id_prefix}_packet_decode_successes
+    type: packet_decode_successes
+    entity_category: diagnostic
+    name: "Packet Decode Successes"
+    icon: mdi:check-network
+    unit_of_measurement: "packets"
+    accuracy_decimals: 0
+  - platform: ratgdo
+    id: ${id_prefix}_packet_decode_errors
+    type: packet_decode_errors
+    entity_category: diagnostic
+    name: "Packet Decode Errors"
+    icon: mdi:alert-circle
+    unit_of_measurement: "packets"
+    accuracy_decimals: 0
 
 lock:
   - platform: ratgdo

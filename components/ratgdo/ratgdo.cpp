@@ -534,6 +534,16 @@ namespace ratgdo {
 #endif
     }
 
+    void RATGDOComponent::record_decode_success()
+    {
+        this->decode_success_count = *this->decode_success_count + 1;
+    }
+
+    void RATGDOComponent::record_decode_error()
+    {
+        this->decode_error_count = *this->decode_error_count + 1;
+    }
+
     void RATGDOComponent::door_open()
     {
         if (*this->door_state == DoorState::OPENING) {
@@ -767,6 +777,14 @@ namespace ratgdo {
     void RATGDOComponent::subscribe_paired_accessories(std::function<void(uint8_t)>&& f)
     {
         this->paired_accessories.subscribe([this, f = std::move(f)](uint8_t state) { defer("paired_accessories", [f, state] { f(state); }); });
+    }
+    void RATGDOComponent::subscribe_decode_success_count(std::function<void(uint32_t)>&& f)
+    {
+        this->decode_success_count.subscribe([this, f = std::move(f)](uint32_t state) { defer("decode_success_count", [f, state] { f(state); }); });
+    }
+    void RATGDOComponent::subscribe_decode_error_count(std::function<void(uint32_t)>&& f)
+    {
+        this->decode_error_count.subscribe([this, f = std::move(f)](uint32_t state) { defer("decode_error_count", [f, state] { f(state); }); });
     }
     void RATGDOComponent::subscribe_door_state(std::function<void(DoorState, float)>&& f)
     {

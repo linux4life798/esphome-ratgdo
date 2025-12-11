@@ -84,6 +84,8 @@ namespace ratgdo {
         single_observable<uint8_t> paired_keypads { PAIRED_DEVICES_UNKNOWN };
         single_observable<uint8_t> paired_wall_controls { PAIRED_DEVICES_UNKNOWN };
         single_observable<uint8_t> paired_accessories { PAIRED_DEVICES_UNKNOWN };
+        single_observable<uint32_t> decode_success_count { 0 };
+        single_observable<uint32_t> decode_error_count { 0 };
 
         observable<DoorState> door_state { DoorState::UNKNOWN };
         observable<float> door_position { DOOR_POSITION_UNKNOWN };
@@ -186,6 +188,9 @@ namespace ratgdo {
         void query_openings();
         void sync();
 
+        void record_decode_success();
+        void record_decode_error();
+
         // children subscriptions
         void subscribe_rolling_code_counter(std::function<void(uint32_t)>&& f);
         void subscribe_opening_duration(std::function<void(float)>&& f);
@@ -199,6 +204,8 @@ namespace ratgdo {
         void subscribe_paired_keypads(std::function<void(uint8_t)>&& f);
         void subscribe_paired_wall_controls(std::function<void(uint8_t)>&& f);
         void subscribe_paired_accessories(std::function<void(uint8_t)>&& f);
+        void subscribe_decode_success_count(std::function<void(uint32_t)>&& f);
+        void subscribe_decode_error_count(std::function<void(uint32_t)>&& f);
         void subscribe_door_state(std::function<void(DoorState, float)>&& f);
         void subscribe_light_state(std::function<void(LightState)>&& f);
         void subscribe_lock_state(std::function<void(LockState)>&& f);
@@ -240,6 +247,7 @@ namespace ratgdo {
             uint8_t reserved : 7; // Reserved for future use
 #endif
         } flags_ { 0 };
+
     }; // RATGDOComponent
 
 } // namespace ratgdo

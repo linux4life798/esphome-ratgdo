@@ -342,7 +342,7 @@ namespace ratgdo {
                 packet[18]);
         }
 
-        optional<Command> Secplus2::decode_packet(const WirePacket& packet) const
+        optional<Command> Secplus2::decode_packet(const WirePacket& packet)
         {
             uint32_t rolling = 0;
             uint64_t fixed = 0;
@@ -351,7 +351,13 @@ namespace ratgdo {
             int err = decode_wireline(packet, &rolling, &fixed, &data);
             if (err < 0) {
                 ESP_LOGW(TAG, "Decode failed (parity error or invalid frame)");
+                if (this->ratgdo_ != nullptr) {
+                    this->ratgdo_->record_decode_error();
+                }
                 return {};
+            }
+            if (this->ratgdo_ != nullptr) {
+                this->ratgdo_->record_decode_success();
             }
 
             uint16_t cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);

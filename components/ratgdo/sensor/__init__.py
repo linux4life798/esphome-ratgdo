@@ -23,6 +23,8 @@ TYPES = {
     "paired_devices_keypads": RATGDOSensorType.RATGDO_PAIRED_KEYPADS,
     "paired_devices_wall_controls": RATGDOSensorType.RATGDO_PAIRED_WALL_CONTROLS,
     "paired_devices_accessories": RATGDOSensorType.RATGDO_PAIRED_ACCESSORIES,
+    "packet_decode_successes": RATGDOSensorType.RATGDO_PACKET_DECODE_SUCCESSES,
+    "packet_decode_errors": RATGDOSensorType.RATGDO_PACKET_DECODE_ERRORS,
     "distance": RATGDOSensorType.RATGDO_DISTANCE,
 }
 

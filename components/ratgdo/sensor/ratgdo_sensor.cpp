@@ -42,6 +42,16 @@ namespace ratgdo {
                 this->publish_state(value);
             });
             break;
+        case RATGDOSensorType::RATGDO_PACKET_DECODE_SUCCESSES:
+            this->parent_->subscribe_decode_success_count([this](uint32_t value) {
+                this->publish_state(value);
+            });
+            break;
+        case RATGDOSensorType::RATGDO_PACKET_DECODE_ERRORS:
+            this->parent_->subscribe_decode_error_count([this](uint32_t value) {
+                this->publish_state(value);
+            });
+            break;
         case RATGDOSensorType::RATGDO_DISTANCE:
 #ifdef RATGDO_USE_DISTANCE_SENSOR
             this->distance_sensor_.setI2cDevice(&I2C);
@@ -86,6 +96,12 @@ namespace ratgdo {
             break;
         case RATGDOSensorType::RATGDO_PAIRED_ACCESSORIES:
             ESP_LOGCONFIG(TAG, "  Type: Paired Accessories");
+            break;
+        case RATGDOSensorType::RATGDO_PACKET_DECODE_SUCCESSES:
+            ESP_LOGCONFIG(TAG, "  Type: Packet Decode Successes");
+            break;
+        case RATGDOSensorType::RATGDO_PACKET_DECODE_ERRORS:
+            ESP_LOGCONFIG(TAG, "  Type: Packet Decode Errors");
             break;
         case RATGDOSensorType::RATGDO_DISTANCE:
             ESP_LOGCONFIG(TAG, "  Type: Distance");
